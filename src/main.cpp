@@ -101,9 +101,7 @@ public:
 	std::vector<int> Get_Archtype()
 	{	
 		std::vector<std::string> type_names;
-		([&](){
-			type_names.push_back(typeid(T).name());
-		 }(),...);
+		(type_names.push_back(typeid(T).name()),...);
 		
 		std::vector<int> temp(max_arch_size, -1);
 		
@@ -132,6 +130,13 @@ public:
 	void* fetch_arch_data(int i,std::string name){
 		return archtypes[i]->data[name];
 	}
+
+
+	template <class T>
+	std::vector<T>* Fetch_Data(int i){
+		void* data_pointer = archtypes[i]->data[typeid(T).name()];
+		return static_cast<std::vector<T>*>(data_pointer);
+	}
 };
 
 int main()
@@ -141,7 +146,6 @@ int main()
 	int static_box = world.Add_Archtype<Position, Box>();
 	int dynamic_box = world.Add_Archtype<Position, Box, RigidBody>();		
 	
-
 
 	for(int i=0;i<100;i++){
 		Vector3 position = {(float)GetRandomValue(0, 800), (float)GetRandomValue(0, 600), 0};
@@ -154,7 +158,7 @@ int main()
 
 
 	std::vector<int> s = world.Get_Archtype<Position, Box>();
-	
+	std::vector<int> d = world.Get_Archtype<Position, RigidBody>();	
 
 
 	InitWindow(800, 600, "Happy bday yuuu boo!!");
@@ -162,14 +166,27 @@ int main()
 
 	while (!WindowShouldClose())
 	{
+
+		//the whole update code!!!
+		[&](){
+			for(int i : d){
+				std::vector<Position>* d_pos_vec = world.Fetch_Data<Position>(i);
+				std::vector<RigidBody>* d_rigid_body = world.Fetch_Data<RigidBody>(i);
+
+				for(int i=0;i<d_pos_vec->size(); i++){
+					(*d_pos_vec)[i].position.x += (*d_rigid_body)[i].velocity.x;// * GetFrameTime();
+					(*d_pos_vec)[i].position.y += (*d_rigid_body)[i].velocity.y;// * GetFrameTime();
+				}
+			}
+		}();
+
+
 		BeginDrawing();
 			ClearBackground(BLUE);	
-			for(int i : s){
-				void* pos = world.fetch_arch_data(i, typeid(Position).name());
-				void* box = world.fetch_arch_data(i, typeid(Box).name());
+			for(int i : s){	
+				std::vector<Position>* pos_vec = world.Fetch_Data<Position>(i);	
+				std::vector<Box>* box_vec = world.Fetch_Data<Box>(i);
 				
-				std::vector<Position>* pos_vec = static_cast<std::vector<Position>*>(pos);	
-				std::vector<Box>* box_vec = static_cast<std::vector<Box>*>(box);
 				for(int j=0;j<pos_vec->size(); j++){
 					DrawRectangle((*pos_vec)[j].position.x, (*pos_vec)[j].position.y, (*box_vec)[j].Size, (*box_vec)[j].Size, RED);	
 				}	
