@@ -1,37 +1,7 @@
-#include <raylib.h>
-#include <raymath.h>
-#include <vector>
 #include <unordered_map>
-#include <iostream>
-#include <typeindex>
 #include <string>
+#include <vector>
 #include <memory>
-#include <algorithm>
-
-struct Position
-{
-	int id;
-	Vector3 position;
-};
-
-struct RigidBody
-{
-	int id;
-	float mass;
-	Vector3 velocity;
-};
-
-
-struct Circle{
-	int id;
-	float Radius;
-};
-
-struct Box{
-	int id;
-	float Size;
-};
-
 
 
 
@@ -48,6 +18,8 @@ public:
 		}
 	}
 };
+
+
 
 class World
 {
@@ -132,64 +104,3 @@ public:
 	}
 };
 
-int main()
-{
-	World world;
-	
-	int static_box = world.Add_Archtype<Position, Box>();
-	int dynamic_box = world.Add_Archtype<Position, Box, RigidBody>();		
-	
-
-	for(int i=0;i<100;i++){
-		Vector3 position = {(float)GetRandomValue(0, 800), (float)GetRandomValue(0, 600), 0};
-		world.Add_Entity<Position, Box>(static_box, (Position){0, position}, (Box){0, 5});
-
-
-		Vector3 _position = {(float)GetRandomValue(0, 800), (float)GetRandomValue(0, 600), 0};
-		world.Add_Entity<Position, Box, RigidBody>(dynamic_box, (Position){0, _position}, (Box){0, 10}, (RigidBody){0, 4, (Vector3){1,0,0}});
-	}
-
-
-	std::vector<int> s = world.Get_Archtype<Position, Box>();
-	std::vector<int> d = world.Get_Archtype<Position, RigidBody>();	
-
-
-	InitWindow(800, 600, "Happy bday yuuu boo!!");
-	SetTargetFPS(60);
-
-	std::cout<<typeid(Position).hash_code()<<std::endl;
-	std::cout<<typeid(Box).hash_code()<<std::endl;
-
-	while (!WindowShouldClose())
-	{
-
-		//the whole update code!!!
-		[&](){
-			for(int i : d){
-				std::vector<Position>* d_pos_vec = world.Fetch_Data<Position>(i);
-				std::vector<RigidBody>* d_rigid_body = world.Fetch_Data<RigidBody>(i);
-
-				for(int i=0;i<d_pos_vec->size(); i++){
-					(*d_pos_vec)[i].position.x += (*d_rigid_body)[i].velocity.x;// * GetFrameTime();
-					(*d_pos_vec)[i].position.y += (*d_rigid_body)[i].velocity.y;// * GetFrameTime();
-				}
-			}
-		}();
-
-
-		BeginDrawing();
-			ClearBackground(BLUE);	
-			for(int i : s){	
-				std::vector<Position> pos_vec = *world.Fetch_Data<Position>(i);	
-				std::vector<Box> box_vec = *world.Fetch_Data<Box>(i);
-				
-				for(int j=0;j<pos_vec.size(); j++){
-					DrawRectangle(pos_vec[j].position.x, pos_vec[j].position.y, box_vec[j].Size, box_vec[j].Size, RED);	
-				}	
-			}
-
-		EndDrawing();
-	}
-	CloseWindow();
-	return 0;
-}
