@@ -1,0 +1,12 @@
+
+{
+	"entity":[
+		"player":[
+			"position":[0,0,0],
+			"camera":1,
+			"player_tag":1,
+			"player_controller":1
+		]	
+
+	]
+}

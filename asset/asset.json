@@ -1,0 +1,7 @@
+{
+	"models":[
+		"ground"
+	],
+
+	"ground":"asset/models/ground.obj"		
+}
