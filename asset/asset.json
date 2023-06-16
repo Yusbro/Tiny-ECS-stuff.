@@ -1,7 +1,8 @@
 {
-	"models":[
-		"ground"
-	],
-
-	"ground":"asset/models/ground.obj"		
+	"models":{
+		"ground" : [
+			"asset/models/ground.obj",
+			"asset/models/ground_tex.png"
+		]
+	}
 }

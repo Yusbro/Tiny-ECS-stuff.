@@ -6,7 +6,7 @@
 
 void Player::init(World& world)
 {	
-	Position position = {10,10,10};
+	Position position = {50,50,50};
 
 	Camera camera;
 	camera.position = position;
@@ -23,12 +23,15 @@ void Player::init(World& world)
 
 
 void Player::update(World& world)
-{
+{	
+	//getting the player's archtype
 	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
 	
+	//getting the player's position and camera component!
 	std::vector<Position>* position = world.Fetch_Data<Position>(player[0]);
 	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);
 	
+	//making the player move
 	Player::player_move((*position)[0], (*camera)[0]);
 }
 
@@ -43,8 +46,6 @@ inline void Player::player_move(Position& position, Camera& camera){
 		
 	
 	float move_angle = std::atan2(x, y) + 0.7853;
-	
-	std::cout<<sin(move_angle)<<"	"<<cos(move_angle)<<std::endl;
 	
 	if((x+y)!=0){
 		position.x += sin(move_angle) * 2;

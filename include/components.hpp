@@ -4,11 +4,10 @@
 
 typedef Vector3 Position;
 
-struct Render{
-	Model model;
-};
+typedef int Render;
 
 typedef Camera Camera;
 
 struct PlayerTag{};
 
+struct GroundTag{};

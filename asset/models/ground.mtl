@@ -1,10 +1,4 @@
-# Blender MTL File: 'None'
-# Material Count: 1
-
-newmtl None
-Ns 500
-Ka 0.8 0.8 0.8
-Kd 0.8 0.8 0.8
-Ks 0.8 0.8 0.8
-d 1
-illum 2
+# Made in Blockbench 4.7.1
+newmtl m_5bd9a5a3-b16f-1235-131d-f9428f5a5775
+map_Kd texture 
+newmtl none

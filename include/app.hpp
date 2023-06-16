@@ -2,8 +2,13 @@
 #include "asset_data.hpp"
 
 class Game{
-	World world;
-	AssetData asset_data;
+	
+	private:
+		World world;
+		AssetData asset_data;
+		
+		Vector3 camera_center(Camera camera);
+
 
 	public:
 		Game();
