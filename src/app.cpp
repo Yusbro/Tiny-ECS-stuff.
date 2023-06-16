@@ -51,7 +51,9 @@ void Game::init(){
 	//loading all the entity and stuff!!!
 	Player::init(Game::world);
 	GroundTile::init(Game::world);
+	
 
+	Game::render_texture = LoadRenderTexture(200, 150);
 	std::cout<<"Done with init stuff"<<std::endl;
 }
 
@@ -64,10 +66,9 @@ void Game::draw(){
 	
 
 
-	BeginDrawing();
+	BeginTextureMode(Game::render_texture);//BeginDrawing();
 		ClearBackground(WHITE);
 		DrawFPS(50, 50);
-
 
 		std::vector<int> camera_arch = Game::world.Get_Archtype<Camera>();
 		std::vector<Camera> camera = *Game::world.Fetch_Data<Camera>(camera_arch[0]);
@@ -77,15 +78,19 @@ void Game::draw(){
 			DrawGrid(10, 5);
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
-		EndMode3D();
-		
-		DrawTexture(Game::asset_data.Models[0].materials[0].maps[MATERIAL_MAP_DIFFUSE].texture, 40, 40, WHITE);
+		EndMode3D();		
+	EndTextureMode();
 
+
+	BeginDrawing();
+		//DrawTextureEx(Game::render_texture.texture,(Vector2){0,0}, 0, 2, WHITE);
+		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 200, -150}, (Rectangle){0,0, 800, 600}, {0,0}, 0, WHITE);
 	EndDrawing();
 }
 
 void Game::deinit(){
 	Game::asset_data.unload_models();
+	UnloadRenderTexture(Game::render_texture);
 }
 
 

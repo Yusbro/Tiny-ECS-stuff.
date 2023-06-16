@@ -40,7 +40,7 @@ void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center
 		float distance = Vector3Distance(camera_center, pos);
 
 		if(distance<60){
-			DrawModel(asset_data.Models[model_id], pos, 10, RED);	
+			DrawModel(asset_data.Models[model_id], pos, 10, WHITE);	
 		}	
 	}
 }

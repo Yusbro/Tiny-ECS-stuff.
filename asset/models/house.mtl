@@ -1,4 +1,24 @@
-# Made in Blockbench 4.7.1
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl m_7e7f48d1-3e73-ceb1-8d09-451798a0b470
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd house_tex.png
+
 newmtl m_bbf8707f-7f0b-14a0-2add-b2c53b627b07
-map_Kd house_tex 
-newmtl none
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd house_tex.png

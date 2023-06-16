@@ -8,7 +8,8 @@ class Game{
 		AssetData asset_data;
 		
 		Vector3 camera_center(Camera camera);
-
+		
+		RenderTexture render_texture;
 
 	public:
 		Game();

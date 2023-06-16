@@ -47,7 +47,7 @@ inline void Player::player_move(Position& position, Camera& camera){
 	
 	float move_angle = std::atan2(x, y) + 0.7853;
 	
-	if((x+y)!=0){
+	if(x!=0 || y!=0){
 		position.x += sin(move_angle) * 2;
 		position.z += cos(move_angle) * 2;
 	}
