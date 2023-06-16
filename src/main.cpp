@@ -2,7 +2,7 @@
 #include "../include/app.hpp"
 int main()
 {	
-	InitWindow(800, 600, "Happy bday yuuu boo!!");
+	InitWindow(800, 600, "COC clone");
 	SetTargetFPS(60);
 
 

@@ -36,7 +36,11 @@ void Game::init(){
 			std::string texture_path = value[1];//"asset/models/ground_tex.png";
 
 			Model model = LoadModel(model_path.c_str());
-			model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = LoadTexture(texture_path.c_str());
+			Texture2D texture = LoadTexture(texture_path.c_str());
+			Shader shader = LoadShader("","asset/shader/world.fs");
+			
+			model.materials[0].shader = shader;
+			model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
 
 			Game::asset_data.Models.push_back(model);
 		}
@@ -74,6 +78,8 @@ void Game::draw(){
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 		EndMode3D();
+		
+		DrawTexture(Game::asset_data.Models[0].materials[0].maps[MATERIAL_MAP_DIFFUSE].texture, 40, 40, WHITE);
 
 	EndDrawing();
 }
@@ -96,10 +102,10 @@ Vector3 Game::camera_center(Camera camera){
 	Vector3 ret;
 		
 	Ray ray = GetMouseRay({400, 300}, camera);
-	Vector3 a = {-500.0, 0.0, -500.0};
-	Vector3 b = {-500.0, 0.0, 500.0};
-	Vector3 c = {500.0, 0.0, 500.0};
-	Vector3 d = {500.0, 0.0, -500.0};
+	Vector3 a = {-5000.0, 0.0, -5000.0};
+	Vector3 b = {-5000.0, 0.0, 5000.0};
+	Vector3 c = {5000.0, 0.0, 5000.0};
+	Vector3 d = {5000.0, 0.0, -5000.0};
 	
 	RayCollision groundHitInfo = GetRayCollisionQuad(ray, a, b, c, d);
 	if(groundHitInfo.hit){

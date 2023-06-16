@@ -3,6 +3,10 @@
 		"ground" : [
 			"asset/models/ground.obj",
 			"asset/models/ground_tex.png"
+		],
+		"house":[
+			"asset/models/house.obj",
+			"asset/models/house_tex.png"
 		]
 	}
 }

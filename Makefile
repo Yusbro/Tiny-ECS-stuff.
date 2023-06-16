@@ -1,2 +1,2 @@
 doit:
-	g++ src/*.cpp -g -lraylib
+	g++ src/*.cpp -lraylib

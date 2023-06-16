@@ -1,5 +1,6 @@
 #include "../include/ground_tile.hpp"
 #include "../include/components.hpp"
+#include <raylib.h>
 #include <raymath.h>
 
 void GroundTile::init(World& world){
@@ -17,7 +18,7 @@ void GroundTile::init(World& world){
 			(float)y * 10
 		};
 
-		Render render = 0;
+		Render render = GetRandomValue(0, 1);
 		GroundTag tag;
 
 		world.Add_Entity(ground_tile, position, render, tag);
@@ -38,8 +39,8 @@ void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center
 		
 		float distance = Vector3Distance(camera_center, pos);
 
-		if(distance<20){
-			DrawModel(asset_data.Models[model_id], pos, 1, RED);	
+		if(distance<60){
+			DrawModel(asset_data.Models[model_id], pos, 10, RED);	
 		}	
 	}
 }
