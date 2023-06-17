@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 
 
@@ -12,13 +13,7 @@ class Archtype
 public:
 	std::unordered_map<std::string, void*> data;
 	Archtype(){}
-	~Archtype()
-	{
-		for (auto &i : data)
-		{
-			free(i.second);
-		}
-	}
+	~Archtype(){}	
 };
 
 
@@ -62,6 +57,22 @@ public:
 		(Register_Components(typeid(T).name(), archtypes.size()-1),...);
 		return archtypes.size()-1;
 	}
+
+	
+	template <class... T>
+	void Remove_Archtype()
+	{
+		std::vector<int> arch_id = Get_Archtype<T...>();
+
+		([&](){
+			std::string type_name = typeid(T).name();
+			void* data_pointer = archtypes[arch_id[0]]->data[type_name];
+			std::vector<T>* vec_data = static_cast<std::vector<T>*>(data_pointer);
+
+			delete vec_data;	
+		}(),...);	
+	}
+
 
 	template <class... T>
 	void Add_Entity(int arch_loc, T... val)

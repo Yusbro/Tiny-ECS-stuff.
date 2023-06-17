@@ -6,7 +6,7 @@
 void GroundTile::init(World& world){
 	int ground_tile = world.Add_Archtype<Position, Render, GroundTag>();
 
-	int max_border_size = 100;
+	int max_border_size = BORDER_SIZE;
 	for(int i=0;i<max_border_size * max_border_size;i++){
 		int y = i/max_border_size;
 		int x = i - (y * max_border_size);
@@ -18,11 +18,15 @@ void GroundTile::init(World& world){
 			(float)y * 10
 		};
 
-		Render render = GetRandomValue(0, 1);
+		Render render = 0;//GetRandomValue(0, 1);
 		GroundTag tag;
 
 		world.Add_Entity(ground_tile, position, render, tag);
 	}
+}
+
+void GroundTile::deinit(World &world){
+	world.Remove_Archtype<Position, Render, GroundTag>();
 }
 
 
@@ -39,8 +43,10 @@ void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center
 		
 		float distance = Vector3Distance(camera_center, pos);
 
-		if(distance<60){
-			DrawModel(asset_data.Models[model_id], pos, 10, WHITE);	
+		if(distance<70){
+			DrawModel(asset_data.Models[model_id], pos, TILE_SIZE, WHITE);	
 		}	
 	}
 }
+
+

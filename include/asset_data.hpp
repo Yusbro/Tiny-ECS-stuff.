@@ -5,6 +5,7 @@
 
 struct AssetData{
 	std::vector<Model> Models;
+	Shader shader;
 
 	void unload_models(){
 		for(Model m:Models){

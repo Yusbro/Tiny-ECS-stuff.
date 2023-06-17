@@ -21,19 +21,53 @@ void Player::init(World& world)
 	world.Add_Entity<Position, Camera, PlayerTag>(player, position, camera, tag);
 }
 
+void Player::deinit(World &world){
+	world.Remove_Archtype<Position, Camera, PlayerTag>();
+}
+
 
 void Player::update(World& world)
 {	
 	//getting the player's archtype
 	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
-	
+
 	//getting the player's position and camera component!
 	std::vector<Position>* position = world.Fetch_Data<Position>(player[0]);
 	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);
 	
 	//making the player move
 	Player::player_move((*position)[0], (*camera)[0]);
+	
+
+	//---for the tile stuff!!
+	std::vector<int> ground_tile_arch = world.Get_Archtype<Render, GroundTag>();
+	std::vector<Render>* render = world.Fetch_Data<Render>(ground_tile_arch[0]);
+
+		
+
+	Player::tile_change(render, (*camera)[0]);
 }
+
+
+
+
+
+inline void Player::tile_change(std::vector<Render>* render, Camera camera){	
+	Vector3 mouse_to_world = Player::camera_center(camera);
+	
+	//converting mouse position to indexed position!
+	mouse_to_world.x += 10 * 0.5;
+	mouse_to_world.z += 10 * 0.5;
+
+	int x = mouse_to_world.x / 10;	
+	int y = mouse_to_world.z / 10;
+
+	int index = x + y * 100;
+	if(IsMouseButtonPressed(0)){
+		(*render)[index] = 1;
+	}	
+}
+
 
 //private functions!!!
 inline void Player::player_move(Position& position, Camera& camera){
@@ -55,3 +89,26 @@ inline void Player::player_move(Position& position, Camera& camera){
 	camera.position = position;
 	camera.target = {position.x - 10, position.y - 10, position.z - 10};
 }
+
+
+
+
+Vector3 Player::camera_center(Camera camera){
+	Vector3 ret;
+	
+	Vector2 mouse_position = GetMousePosition();
+
+	Ray ray = GetMouseRay(mouse_position, camera);
+	Vector3 a = {-5000.0, 0.0, -5000.0};
+	Vector3 b = {-5000.0, 0.0, 5000.0};
+	Vector3 c = {5000.0, 0.0, 5000.0};
+	Vector3 d = {5000.0, 0.0, -5000.0};
+	
+	RayCollision groundHitInfo = GetRayCollisionQuad(ray, a, b, c, d);
+	if(groundHitInfo.hit){
+		ret = groundHitInfo.point;
+	}
+
+	return ret;	
+}
+

@@ -27,6 +27,9 @@ void Game::init(){
 	json data = json::parse(fileContent);
 	std::cout<<"asset json parased!"<<std::endl;
 	
+	
+	asset_data.shader = LoadShader("", "asset/shader/world.fs");
+
 	if(data.contains("models") && data["models"].is_object()){
 		for(auto i = data["models"].begin(); i != data["models"].end(); ++i ){
 			std::string k = i.key();
@@ -37,9 +40,8 @@ void Game::init(){
 
 			Model model = LoadModel(model_path.c_str());
 			Texture2D texture = LoadTexture(texture_path.c_str());
-			Shader shader = LoadShader("","asset/shader/world.fs");
 			
-			model.materials[0].shader = shader;
+			model.materials[0].shader = asset_data.shader;
 			model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
 
 			Game::asset_data.Models.push_back(model);
@@ -64,11 +66,9 @@ void Game::update(){
 
 void Game::draw(){
 	
-
-
 	BeginTextureMode(Game::render_texture);//BeginDrawing();
 		ClearBackground(WHITE);
-		DrawFPS(50, 50);
+		
 
 		std::vector<int> camera_arch = Game::world.Get_Archtype<Camera>();
 		std::vector<Camera> camera = *Game::world.Fetch_Data<Camera>(camera_arch[0]);
@@ -79,18 +79,24 @@ void Game::draw(){
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 		EndMode3D();		
+		
+		DrawFPS(50, 50);
 	EndTextureMode();
 
 
 	BeginDrawing();
 		//DrawTextureEx(Game::render_texture.texture,(Vector2){0,0}, 0, 2, WHITE);
-		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 200, -150}, (Rectangle){0,0, 800, 600}, {0,0}, 0, WHITE);
+		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 200, -150}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
 	EndDrawing();
 }
 
 void Game::deinit(){
+	UnloadShader(Game::asset_data.shader);
 	Game::asset_data.unload_models();
 	UnloadRenderTexture(Game::render_texture);
+
+	Player::deinit(world);
+	GroundTile::deinit(world);
 }
 
 
@@ -100,13 +106,11 @@ Game::Game(){}
 Game::~Game(){}
 
 
-
-
 //private functions!
 Vector3 Game::camera_center(Camera camera){
 	Vector3 ret;
 		
-	Ray ray = GetMouseRay({400, 300}, camera);
+	Ray ray = GetMouseRay({512, 400}, camera);
 	Vector3 a = {-5000.0, 0.0, -5000.0};
 	Vector3 b = {-5000.0, 0.0, 5000.0};
 	Vector3 c = {5000.0, 0.0, 5000.0};
