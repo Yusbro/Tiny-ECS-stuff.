@@ -21,31 +21,25 @@ void Player::init(World& world)
 	world.Add_Entity<Position, Camera, PlayerTag>(player, position, camera, tag);
 }
 
-void Player::deinit(World &world){
-	world.Remove_Archtype<Position, Camera, PlayerTag>();
-}
-
-
 void Player::update(World& world)
 {	
 	//getting the player's archtype
 	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
+	std::vector<int> ground_tile_arch = world.Get_Archtype<Render, GroundTag>();
 
 	//getting the player's position and camera component!
 	std::vector<Position>* position = world.Fetch_Data<Position>(player[0]);
-	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);
+	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);	
+	std::vector<Render>* ground_tile_render = world.Fetch_Data<Render>(ground_tile_arch[0]);
+
+
 	
 	//making the player move
 	Player::player_move((*position)[0], (*camera)[0]);
 	
 
 	//---for the tile stuff!!
-	std::vector<int> ground_tile_arch = world.Get_Archtype<Render, GroundTag>();
-	std::vector<Render>* render = world.Fetch_Data<Render>(ground_tile_arch[0]);
-
-		
-
-	Player::tile_change(render, (*camera)[0]);
+	Player::tile_change(ground_tile_render, (*camera)[0]);
 }
 
 

@@ -94,9 +94,6 @@ void Game::deinit(){
 	UnloadShader(Game::asset_data.shader);
 	Game::asset_data.unload_models();
 	UnloadRenderTexture(Game::render_texture);
-
-	Player::deinit(world);
-	GroundTile::deinit(world);
 }
 
 

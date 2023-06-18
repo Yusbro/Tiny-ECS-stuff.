@@ -3,7 +3,6 @@
 
 namespace Player{
 	void init(World &world);
-	void deinit(World &world);
 	void update(World &world);
 	void draw(World &world);
 

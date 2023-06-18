@@ -25,11 +25,6 @@ void GroundTile::init(World& world){
 	}
 }
 
-void GroundTile::deinit(World &world){
-	world.Remove_Archtype<Position, Render, GroundTag>();
-}
-
-
 void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center){
 	std::vector<int> ground_tile_arch = world.Get_Archtype<Position, Render, GroundTag>();
 	

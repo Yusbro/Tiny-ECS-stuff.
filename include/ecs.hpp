@@ -5,15 +5,37 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <functional>
+
+
+
+struct Deallocator{
+	std::function<void(void*)> deallocate;
+	
+	template <class T>
+	void set_deallocator(){
+		std::cout<<typeid(T).name()<<std::endl;
+		deallocate = [](void* ptr){
+			std::cout<<"GOING TO DELETEE!!!"<<std::endl;
+			delete static_cast<T*>(ptr);
+		};
+	}
+};
+
 
 
 
 class Archtype
 {
 public:
+	std::unordered_map<std::string, Deallocator> deallocator;
 	std::unordered_map<std::string, void*> data;
 	Archtype(){}
-	~Archtype(){}	
+	~Archtype(){
+		for(auto it : data){
+			deallocator[it.first].deallocate(it.second);
+		}
+	}	
 };
 
 
@@ -38,7 +60,9 @@ private:
 
 public:
 	World() {}
-	~World() {}
+	~World() {
+
+	}
 
 	template <class... T>
 	int Add_Archtype()
@@ -50,28 +74,20 @@ public:
 					typeid(T).name(),
 					static_cast<void*>(new std::vector<T>())
 					});
-		 }(),...);
+			
+			Deallocator temp_deallocator;
+			temp_deallocator.set_deallocator<std::vector<T>>();
+			temp_arch->deallocator.insert({
+					typeid(T).name(),
+					temp_deallocator
+					});
+		 }(),...);	
+
 		archtypes.push_back(std::move(temp_arch));	
 
 		(Register_Components(typeid(T).name(), archtypes.size()-1),...);
 		return archtypes.size()-1;
 	}
-
-	
-	template <class... T>
-	void Remove_Archtype()
-	{
-		std::vector<int> arch_id = Get_Archtype<T...>();
-
-		([&](){
-			std::string type_name = typeid(T).name();
-			void* data_pointer = archtypes[arch_id[0]]->data[type_name];
-			std::vector<T>* vec_data = static_cast<std::vector<T>*>(data_pointer);
-
-			delete vec_data;	
-		}(),...);	
-	}
-
 
 	template <class... T>
 	void Add_Entity(int arch_loc, T... val)
