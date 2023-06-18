@@ -1,0 +1,3 @@
+/home/rammy/Desktop/Game_dev/end_of_times/build/CMakeFiles/game.dir
+/home/rammy/Desktop/Game_dev/end_of_times/build/CMakeFiles/edit_cache.dir
+/home/rammy/Desktop/Game_dev/end_of_times/build/CMakeFiles/rebuild_cache.dir
