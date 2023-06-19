@@ -43,7 +43,7 @@ class World
 {
 
 private:
-	int max_arch_size = 20;
+	int max_arch_size = 40;
 	std::vector<std::unique_ptr<Archtype>> archtypes;
 	std::unordered_map<std::size_t, int> type_manager;
 	std::unordered_map<std::string, std::vector<int>> component_manager;
@@ -84,7 +84,7 @@ public:
 
 		archtypes.push_back(std::move(temp_arch));	
 
-		(Register_Components(typeid(T).name(), archtypes.size()-1),...);
+		(Register_Components(typeid(T).name(), archtypes.size()-1),...);	
 		return archtypes.size()-1;
 	}
 	

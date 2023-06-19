@@ -5,6 +5,7 @@
 //the entity stuff
 #include "../include/player.hpp"
 #include "../include/ground_tile.hpp"
+#include "../include/titan.hpp"
 
 #include <raylib.h>
 #include <fstream>
@@ -29,8 +30,9 @@ void Game::init(){
 	asset_data.shader = LoadShader("", "asset/shader/world.fs");
 
 	if(data.contains("models") && data["models"].is_object()){
-		for(auto i = data["models"].begin(); i != data["models"].end(); ++i ){
+		for(auto i = data["models"].begin(); i != data["models"].end(); i++ ){
 			std::string k = i.key();
+			std::cout<<"[ASSET LOAD] loaded "<<k<<std::endl;
 			const json value = i.value();//the path array!!!
 			
 			std::string model_path = value[0];
@@ -50,6 +52,7 @@ void Game::init(){
 	//loading all the entity and stuff!!!
 	Player::init(Game::world);
 	GroundTile::init(Game::world);
+	Titan::init(Game::world);
 	
 	Game::render_texture = LoadRenderTexture(200, 150);
 	std::cout<<"Done with init stuff"<<std::endl;
@@ -74,11 +77,11 @@ void Game::draw(){
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 			Player::draw(Game::world);
+			Titan::draw(Game::world, Game::asset_data, _camera_center);	
 		EndMode3D();
 	EndTextureMode();
 
 	BeginDrawing();
-		//DrawTextureEx(Game::render_texture.texture,(Vector2){0,0}, 0, 2, WHITE);
 		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 200, -150}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
 	EndDrawing();
 }

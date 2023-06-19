@@ -1,12 +1,16 @@
 {
 	"models":{
-		"ground" : [
+		"aground" : [
 			"asset/models/ground.obj",
 			"asset/models/ground_tex.png"
 		],
-		"house":[
+		"bhouse":[
 			"asset/models/house.obj",
 			"asset/models/house_tex.png"
+		],
+		"cdemon":[
+			"asset/models/demon.obj",
+			"asset/models/demon_0.png"
 		]
 	}
 }
