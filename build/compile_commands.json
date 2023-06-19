@@ -22,5 +22,11 @@
   "command": "/usr/bin/c++  -I/home/rammy/Desktop/Game_dev/end_of_times/build/../include -std=gnu++20 -o CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.o -c /home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp",
   "file": "/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp",
   "output": "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.o"
+},
+{
+  "directory": "/home/rammy/Desktop/Game_dev/end_of_times/build",
+  "command": "/usr/bin/c++  -I/home/rammy/Desktop/Game_dev/end_of_times/build/../include -std=gnu++20 -o CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o -c /home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp",
+  "file": "/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp",
+  "output": "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o"
 }
 ]

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rammy/Desktop/Game_dev/end_of_times/src/ground_tile.cpp" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/ground_tile.cpp.o" "gcc" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/ground_tile.cpp.o.d"
   "/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp.o" "gcc" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp.o.d"
   "/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.o" "gcc" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.o.d"
+  "/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o" "gcc" "CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

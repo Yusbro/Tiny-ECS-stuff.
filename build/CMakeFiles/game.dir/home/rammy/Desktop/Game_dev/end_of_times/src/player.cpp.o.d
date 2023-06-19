@@ -193,7 +193,13 @@ CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.o: \
  /usr/include/c++/13.1.1/pstl/glue_memory_defs.h \
  /usr/include/c++/13.1.1/pstl/execution_defs.h \
  /usr/include/c++/13.1.1/iostream /usr/include/c++/13.1.1/istream \
- /usr/include/c++/13.1.1/bits/istream.tcc /usr/include/raymath.h \
+ /usr/include/c++/13.1.1/bits/istream.tcc \
+ /usr/include/c++/13.1.1/functional \
+ /usr/include/c++/13.1.1/bits/std_function.h \
+ /usr/include/c++/13.1.1/array /usr/include/c++/13.1.1/bits/stl_algo.h \
+ /usr/include/c++/13.1.1/bits/algorithmfwd.h \
+ /usr/include/c++/13.1.1/bits/stl_heap.h \
+ /usr/include/c++/13.1.1/bits/uniform_int_dist.h /usr/include/raymath.h \
  /usr/include/c++/13.1.1/math.h /usr/include/c++/13.1.1/cmath \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \

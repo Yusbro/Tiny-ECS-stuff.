@@ -13,11 +13,9 @@
 #include <map>
 
 
-
 using json = nlohmann::json;
 
 void Game::init(){
-
 	//loading all the assets!!!
 	std::ifstream f("asset/asset.json");
 	std::string fileContent({std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>()});
@@ -49,12 +47,10 @@ void Game::init(){
 		std::cout<<"done loading the models"<<std::endl;
 	}
 
-
 	//loading all the entity and stuff!!!
 	Player::init(Game::world);
 	GroundTile::init(Game::world);
 	
-
 	Game::render_texture = LoadRenderTexture(200, 150);
 	std::cout<<"Done with init stuff"<<std::endl;
 }
@@ -65,11 +61,10 @@ void Game::update(){
 }
 
 void Game::draw(){
-	
+	//drawing every stuff to a render texture
 	BeginTextureMode(Game::render_texture);//BeginDrawing();
 		ClearBackground(WHITE);
 		
-
 		std::vector<int> camera_arch = Game::world.Get_Archtype<Camera>();
 		std::vector<Camera> camera = *Game::world.Fetch_Data<Camera>(camera_arch[0]);
 		
@@ -78,11 +73,9 @@ void Game::draw(){
 			DrawGrid(10, 5);
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
-		EndMode3D();		
-		
-		DrawFPS(50, 50);
+			Player::draw(Game::world);
+		EndMode3D();
 	EndTextureMode();
-
 
 	BeginDrawing();
 		//DrawTextureEx(Game::render_texture.texture,(Vector2){0,0}, 0, 2, WHITE);
@@ -95,8 +88,6 @@ void Game::deinit(){
 	Game::asset_data.unload_models();
 	UnloadRenderTexture(Game::render_texture);
 }
-
-
 
 
 Game::Game(){}

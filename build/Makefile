@@ -225,6 +225,30 @@ home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.s
 .PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/player.cpp.s
 
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.o: home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.o
+
+# target to build an object file
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o
+
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.i: home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.i
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.i
+
+# target to preprocess a source file
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.i
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.i
+
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.s: home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.s
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.s
+
+# target to generate assembly for a file
+home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.s
+.PHONY : home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -246,6 +270,9 @@ help:
 	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/player.o"
 	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/player.i"
 	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/player.s"
+	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/titan.o"
+	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/titan.i"
+	@echo "... home/rammy/Desktop/Game_dev/end_of_times/src/titan.s"
 .PHONY : help
 
 

@@ -60,10 +60,9 @@ private:
 
 public:
 	World() {}
-	~World() {
-
-	}
-
+	~World() {}
+	
+	//adding an archtype to the world!
 	template <class... T>
 	int Add_Archtype()
 	{
@@ -88,7 +87,8 @@ public:
 		(Register_Components(typeid(T).name(), archtypes.size()-1),...);
 		return archtypes.size()-1;
 	}
-
+	
+	//adding an entity to an archtype
 	template <class... T>
 	void Add_Entity(int arch_loc, T... val)
 	{	
@@ -99,6 +99,7 @@ public:
 		 }(),...);
 	}
 
+	//getting the archtype id;
 	template <class... T>
 	std::vector<int> Get_Archtype()
 	{	
@@ -123,7 +124,9 @@ public:
 		}
 		return ret;
 	}
+	
 
+	//fetching all the data from the archtype!!
 	template <class T>
 	std::vector<T>* Fetch_Data(int i)
 	{

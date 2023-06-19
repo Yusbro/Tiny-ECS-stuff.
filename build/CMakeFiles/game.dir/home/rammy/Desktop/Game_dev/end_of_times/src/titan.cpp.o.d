@@ -1,8 +1,7 @@
-CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp.o: \
- /home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp \
- /usr/include/stdc-predef.h /usr/include/raylib.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
- /home/rammy/Desktop/Game_dev/end_of_times/src/../include/app.hpp \
+CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp.o: \
+ /home/rammy/Desktop/Game_dev/end_of_times/src/titan.cpp \
+ /usr/include/stdc-predef.h \
+ /home/rammy/Desktop/Game_dev/end_of_times/src/../include/titan.hpp \
  /home/rammy/Desktop/Game_dev/end_of_times/src/../include/ecs.hpp \
  /usr/include/c++/13.1.1/unordered_map \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
@@ -70,6 +69,7 @@ CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/postypes.h /usr/include/c++/13.1.1/cwchar \
  /usr/include/wchar.h /usr/include/bits/libc-header-start.h \
  /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/include/bits/wchar.h /usr/include/bits/types/wint_t.h \
  /usr/include/bits/types/mbstate_t.h \
  /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
@@ -197,5 +197,4 @@ CMakeFiles/game.dir/home/rammy/Desktop/Game_dev/end_of_times/src/main.cpp.o: \
  /usr/include/c++/13.1.1/array /usr/include/c++/13.1.1/bits/stl_algo.h \
  /usr/include/c++/13.1.1/bits/algorithmfwd.h \
  /usr/include/c++/13.1.1/bits/stl_heap.h \
- /usr/include/c++/13.1.1/bits/uniform_int_dist.h \
- /home/rammy/Desktop/Game_dev/end_of_times/src/../include/asset_data.hpp
+ /usr/include/c++/13.1.1/bits/uniform_int_dist.h /usr/include/raylib.h

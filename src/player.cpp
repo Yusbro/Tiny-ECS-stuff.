@@ -33,7 +33,6 @@ void Player::update(World& world)
 	std::vector<Render>* ground_tile_render = world.Fetch_Data<Render>(ground_tile_arch[0]);
 
 
-	
 	//making the player move
 	Player::player_move((*position)[0], (*camera)[0]);
 	
@@ -43,7 +42,26 @@ void Player::update(World& world)
 }
 
 
+void Player::draw(World &world)
+{
+	//getting the player archtype
+	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
+	
+	//getting da camera component!!
+	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);
+	
+	//getting da cursor to world position
+	Vector3 mouse_to_world = Player::camera_center((*camera)[0]);
+	
+	//
+	mouse_to_world.x += 10 * 0.5;
+	mouse_to_world.z += 10 * 0.5;
 
+	mouse_to_world.x = floor(mouse_to_world.x / 10) * 10;	
+	mouse_to_world.z = floor(mouse_to_world.z / 10) * 10;	
+	
+	DrawCube(mouse_to_world, 3, 3, 3, RED);
+}
 
 
 inline void Player::tile_change(std::vector<Render>* render, Camera camera){	
