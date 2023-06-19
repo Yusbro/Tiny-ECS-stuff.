@@ -2,15 +2,27 @@
 #include <raylib.h>
 
 //basic components!!!
-typedef Vector3 Position;
+struct Transform_Component
+{
+	Vector3 position;
+	float rotation = 0;
+};
 
-typedef int Render;
+struct Renderer_Component{
+	int model_id;
+};
 
-typedef Camera Camera;
+struct Camera_Component
+{
+	Camera camera;
+	float zoom;
+};
 
-typedef int Health;
+struct Move_Component
+{
+	Vector3 target;	
+};
 
-typedef Vector3 Target;
 
 struct PlayerTag{};
 

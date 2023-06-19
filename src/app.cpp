@@ -54,13 +54,14 @@ void Game::init(){
 	GroundTile::init(Game::world);
 	Titan::init(Game::world);
 	
-	Game::render_texture = LoadRenderTexture(200, 150);
+	Game::render_texture = LoadRenderTexture(400, 300);
 	std::cout<<"Done with init stuff"<<std::endl;
 }
 
 
 void Game::update(){
 	Player::update(Game::world);
+	Titan::update(Game::world);
 }
 
 void Game::draw(){
@@ -68,11 +69,11 @@ void Game::draw(){
 	BeginTextureMode(Game::render_texture);//BeginDrawing();
 		ClearBackground(WHITE);
 		
-		std::vector<int> camera_arch = Game::world.Get_Archtype<Camera>();
-		std::vector<Camera> camera = *Game::world.Fetch_Data<Camera>(camera_arch[0]);
+		std::vector<int> camera_arch = Game::world.Get_Archtype<Camera_Component>();
+		std::vector<Camera_Component> camera = *Game::world.Fetch_Data<Camera_Component>(camera_arch[0]);
 		
-		Vector3 _camera_center = Game::camera_center(camera[0]);
-		BeginMode3D(camera[0]);
+		Vector3 _camera_center = Game::camera_center(camera[0].camera);
+		BeginMode3D(camera[0].camera);
 			DrawGrid(10, 5);
 			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
@@ -82,7 +83,7 @@ void Game::draw(){
 	EndTextureMode();
 
 	BeginDrawing();
-		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 200, -150}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
+		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 400, -300}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
 	EndDrawing();
 }
 

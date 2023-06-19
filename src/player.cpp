@@ -6,31 +6,33 @@
 
 void Player::init(World& world)
 {	
-	Position position = {50,50,50};
+	Transform_Component transform_component = {.position={50,50,50}};
 
 	Camera camera;
-	camera.position = position;
+	camera.position = transform_component.position;
 	camera.target = {0,0,0};
 	camera.projection = CAMERA_ORTHOGRAPHIC;
 	camera.up = {0, 1, 0};
 	camera.fovy = 60.0f;
 	
+	Camera_Component camera_component = {.camera{camera}};
+
 	PlayerTag tag;
 	
-	int player = world.Add_Archtype<Position, Camera, PlayerTag>();
-	world.Add_Entity<Position, Camera, PlayerTag>(player, position, camera, tag);
+	int player = world.Add_Archtype<Transform_Component, Camera_Component, PlayerTag>();
+	world.Add_Entity<Transform_Component, Camera_Component, PlayerTag>(player, transform_component, camera_component, tag);
 }
 
 void Player::update(World& world)
 {	
 	//getting the player's archtype
-	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
-	std::vector<int> ground_tile_arch = world.Get_Archtype<Render, GroundTag>();
+	std::vector<int> player = world.Get_Archtype<Transform_Component, Camera_Component, PlayerTag>();
+	std::vector<int> ground_tile_arch = world.Get_Archtype<Renderer_Component, GroundTag>();
 
 	//getting the player's position and camera component!
-	std::vector<Position>* position = world.Fetch_Data<Position>(player[0]);
-	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);	
-	std::vector<Render>* ground_tile_render = world.Fetch_Data<Render>(ground_tile_arch[0]);
+	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(player[0]);
+	std::vector<Camera_Component>* camera = world.Fetch_Data<Camera_Component>(player[0]);	
+	std::vector<Renderer_Component>* ground_tile_render = world.Fetch_Data<Renderer_Component>(ground_tile_arch[0]);
 
 
 	//making the player move
@@ -45,13 +47,13 @@ void Player::update(World& world)
 void Player::draw(World &world)
 {
 	//getting the player archtype
-	std::vector<int> player = world.Get_Archtype<Position, Camera, PlayerTag>();
+	std::vector<int> player = world.Get_Archtype<Transform_Component, Camera_Component, PlayerTag>();
 	
 	//getting da camera component!!
-	std::vector<Camera>* camera = world.Fetch_Data<Camera>(player[0]);
+	std::vector<Camera_Component>* camera = world.Fetch_Data<Camera_Component>(player[0]);
 	
 	//getting da cursor to world position
-	Vector3 mouse_to_world = Player::camera_center((*camera)[0]);
+	Vector3 mouse_to_world = Player::camera_center((*camera)[0].camera);
 	
 	//
 	mouse_to_world.x += 10 * 0.5;
@@ -64,8 +66,8 @@ void Player::draw(World &world)
 }
 
 
-inline void Player::tile_change(std::vector<Render>* render, Camera camera){	
-	Vector3 mouse_to_world = Player::camera_center(camera);
+inline void Player::tile_change(std::vector<Renderer_Component>* render, Camera_Component camera){	
+	Vector3 mouse_to_world = Player::camera_center(camera.camera);
 	
 	//converting mouse position to indexed position!
 	mouse_to_world.x += 10 * 0.5;
@@ -76,13 +78,13 @@ inline void Player::tile_change(std::vector<Render>* render, Camera camera){
 
 	int index = x + y * 100;
 	if(IsMouseButtonPressed(0)){
-		(*render)[index] = 1;
+		(*render)[index].model_id = 1;
 	}	
 }
 
 
 //private functions!!!
-inline void Player::player_move(Position& position, Camera& camera){
+inline void Player::player_move(Transform_Component& transform, Camera_Component& camera){
 	//getting da controls!
 	float x=0, y=0;
 	if(IsKeyDown(KEY_W)) y = -1;
@@ -94,12 +96,12 @@ inline void Player::player_move(Position& position, Camera& camera){
 	float move_angle = std::atan2(x, y) + 0.7853;
 	
 	if(x!=0 || y!=0){
-		position.x += sin(move_angle) * 2;
-		position.z += cos(move_angle) * 2;
+		transform.position.x += sin(move_angle) * 2;
+		transform.position.z += cos(move_angle) * 2;
 	}
 
-	camera.position = position;
-	camera.target = {position.x - 10, position.y - 10, position.z - 10};
+	camera.camera.position = transform.position;
+	camera.camera.target = {transform.position.x - 10, transform.position.y - 10, transform.position.z - 10};
 }
 
 

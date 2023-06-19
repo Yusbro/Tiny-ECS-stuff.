@@ -4,21 +4,23 @@
 #include <raymath.h>
 
 void GroundTile::init(World& world){
-	int ground_tile = world.Add_Archtype<Position, Render, GroundTag>();
+	int ground_tile = world.Add_Archtype<Transform_Component, Renderer_Component, GroundTag>();
 
 	int max_border_size = BORDER_SIZE;
 	for(int i=0;i<max_border_size * max_border_size;i++){
 		int y = i/max_border_size;
 		int x = i - (y * max_border_size);
 		
-		Position position = 
+		Transform_Component position = 
 		{
-			(float)x * 10,
-			0,
-			(float)y * 10
+			.position{
+				(float)x * 10,
+				0,
+				(float)y * 10
+			}
 		};
 
-		Render render = 0;//GetRandomValue(0, 1);
+		Renderer_Component render = {.model_id=0};//GetRandomValue(0, 1);
 		GroundTag tag;
 
 		world.Add_Entity(ground_tile, position, render, tag);
@@ -26,15 +28,15 @@ void GroundTile::init(World& world){
 }
 
 void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center){
-	std::vector<int> ground_tile_arch = world.Get_Archtype<Position, Render, GroundTag>();
+	std::vector<int> ground_tile_arch = world.Get_Archtype<Transform_Component, Renderer_Component, GroundTag>();
 	
-	std::vector<Position>* position = world.Fetch_Data<Position>(ground_tile_arch[0]);
-	std::vector<Render>* render = world.Fetch_Data<Render>(ground_tile_arch[0]);
+	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(ground_tile_arch[0]);
+	std::vector<Renderer_Component>* render = world.Fetch_Data<Renderer_Component>(ground_tile_arch[0]);
 	
 
 	for(int i=0; i < position->size(); i++){	
-		Position pos = (*position)[i];
-		Render model_id = (*render)[i];
+		Vector3 pos = (*position)[i].position;
+		int model_id = (*render)[i].model_id;
 		
 		float distance = Vector3Distance(camera_center, pos);
 
