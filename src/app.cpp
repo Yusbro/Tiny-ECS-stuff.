@@ -74,16 +74,15 @@ void Game::draw(){
 		
 		Vector3 _camera_center = Game::camera_center(camera[0].camera);
 		BeginMode3D(camera[0].camera);
-			DrawGrid(10, 5);
-			DrawCube({0,0,0}, 1, 1, 1, RED);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 			Player::draw(Game::world);
 			Titan::draw(Game::world, Game::asset_data, _camera_center);	
 		EndMode3D();
 	EndTextureMode();
 
-	BeginDrawing();
+	BeginDrawing();	
 		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 400, -300}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
+		DrawFPS(50, 50);
 	EndDrawing();
 }
 

@@ -5,10 +5,8 @@ int main()
 	InitWindow(1024, 800, "COC clone");
 	SetTargetFPS(60);
 
-
 	Game game = Game();
 	game.init();
-
 		
 	while (!WindowShouldClose())
 	{
