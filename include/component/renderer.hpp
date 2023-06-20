@@ -1,5 +1,6 @@
 #include "../ecs.hpp"
 #include "../asset_data.hpp"
+#include "../config.hpp"
 
 namespace Renderer
 {

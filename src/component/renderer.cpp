@@ -56,7 +56,7 @@ void Renderer::model_renderer(World &world, AssetData &asset_data)
 }
 
 
-void tile_renderer(World &world, AssetData &asset_data)
+void Renderer::tile_renderer(World &world, AssetData &asset_data)
 {	
 	auto camera_center = 
 		[](Camera camera){
@@ -83,13 +83,41 @@ void tile_renderer(World &world, AssetData &asset_data)
 	
 	
 	//da tile renderer archtypes!
-	std::vector<int> tilemap_arch = world.Get_Archtype<Transform_Component, TileMap_Renderer>();
+	std::vector<int> tilemap_arch = world.Get_Archtype<Transform_Component, TileMap_Renderer, GroundTag>();
 	
-	
-	for(int i : tilemap_arch)
+	for(int j : tilemap_arch)
 	{
-		std::vector<Transform_Component> transform_arr = *world.Fetch_Data<Transform_Component>(i);	
-		std::vector<TileMap_Renderer> tilemap_arr = *world.Fetch_Data<TileMap_Renderer>(i);
+		std::vector<Transform_Component>* transform_arr = world.Fetch_Data<Transform_Component>(j);	
+		std::vector<TileMap_Renderer>* tilemap_arr = world.Fetch_Data<TileMap_Renderer>(j);
 		
+		int tx = cam_to_world.x/(TINY_BORDER_SIZE*TILE_SIZE);
+		int ty = cam_to_world.z/(TINY_BORDER_SIZE*TILE_SIZE);
+		
+		
+		auto draw_tile = [&](int x, int y){
+			int index = (x + y * (BORDER_SIZE/TINY_BORDER_SIZE)) * TINY_BORDER_AREA;	
+			
+			if(index <0)	return;
+			for(int i=index; i < index + TINY_BORDER_AREA; i++){
+				
+				Transform_Component transform = (*transform_arr)[i];
+				TileMap_Renderer tilemap = (*tilemap_arr)[i];
+
+				Vector3 pos = transform.position;
+				int model_id = tilemap.model_id;
+		
+				DrawModel(asset_data.Models[model_id], pos, TILE_SIZE, WHITE);		
+			}
+		};
+
+		draw_tile(tx, ty);	
+		draw_tile(tx+1, ty);	
+		draw_tile(tx-1, ty);
+		draw_tile(tx, ty+1);
+		draw_tile(tx, ty-1);
+		draw_tile(tx+1, ty+1);
+		draw_tile(tx-1, ty-1);
+		draw_tile(tx+1, ty-1);
+		draw_tile(tx-1, ty+1);
 	}
 }

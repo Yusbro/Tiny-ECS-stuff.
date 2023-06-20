@@ -75,10 +75,10 @@ void Game::draw(){
 		
 		Vector3 _camera_center = Game::camera_center(camera[0].camera);
 		BeginMode3D(camera[0].camera);
-			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 			Player::draw(Game::world);
 
 			Renderer::model_renderer(Game::world, Game::asset_data);
+			Renderer::tile_renderer(Game::world, Game::asset_data);
 
 		EndMode3D();
 	EndTextureMode();

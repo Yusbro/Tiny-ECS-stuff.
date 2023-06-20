@@ -28,12 +28,12 @@ void Player::update(World& world)
 {	
 	//getting the player's archtype
 	std::vector<int> player = world.Get_Archtype<Transform_Component, Camera_Component, PlayerTag>();
-	std::vector<int> ground_tile_arch = world.Get_Archtype<Renderer_Component, GroundTag>();
+	std::vector<int> ground_tile_arch = world.Get_Archtype<TileMap_Renderer, GroundTag>();
 
 	//getting the player's position and camera component!
 	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(player[0]);
 	std::vector<Camera_Component>* camera = world.Fetch_Data<Camera_Component>(player[0]);	
-	std::vector<Renderer_Component>* ground_tile_render = world.Fetch_Data<Renderer_Component>(ground_tile_arch[0]);
+	std::vector<TileMap_Renderer>* ground_tile_render = world.Fetch_Data<TileMap_Renderer>(ground_tile_arch[0]);
 
 
 	//making the player move
@@ -67,28 +67,30 @@ void Player::draw(World &world)
 }
 
 
-inline void Player::tile_change(std::vector<Renderer_Component>* render, Camera_Component camera){	
+inline void Player::tile_change(std::vector<TileMap_Renderer>* render, Camera_Component camera){	
 	Vector3 mouse_to_world = Player::camera_center(camera.camera);
 	
 	//converting mouse position to indexed position!
 	//std::cout<<mouse_to_world.x/100<<"	"<<mouse_to_world.z/100<<std::endl;
-	mouse_to_world.x += 5;
-	mouse_to_world.z += 5;
+	mouse_to_world.x += TILE_SIZE/2.0;
+	mouse_to_world.z += TILE_SIZE/2.0;
 
-	int bx = mouse_to_world.x/100;
-	int by = mouse_to_world.z/100;
+	int bx = mouse_to_world.x/(TINY_BORDER_AREA);
+	int by = mouse_to_world.z/(TINY_BORDER_AREA);
 
-	int tx = mouse_to_world.x/10;
-	int ty = mouse_to_world.z/10;
+	int tx = mouse_to_world.x/TINY_BORDER_SIZE;
+	int ty = mouse_to_world.z/TINY_BORDER_SIZE;
 
-	int nein_x = tx - (bx * 10);
-	int nein_y = ty - (by * 10);
+	int nein_x = tx - (bx * TINY_BORDER_SIZE);
+	int nein_y = ty - (by * TINY_BORDER_SIZE);
 
-	int big_index = (bx + by * 10) * 100;
-	int small_index = nein_x + nein_y * 10;
+	int big_index = (bx + by * (BORDER_SIZE/TINY_BORDER_SIZE)) * TINY_BORDER_AREA;
+	int small_index = nein_x + nein_y * TINY_BORDER_SIZE;
 	
 	int index = big_index + small_index;	
+	
 
+	std::cout<<by<<"	"<<ty<<"	"<<nein_y<<"	"<<big_index<<"	"<<small_index<<std::endl;
 	if(index < 0 || index > render->size()) return;
 
 	if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
