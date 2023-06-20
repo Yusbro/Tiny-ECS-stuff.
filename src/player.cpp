@@ -1,6 +1,7 @@
 #include "../include/player.hpp"
 #include "../include/components.hpp"
 
+
 #include <raymath.h>
 #include <iostream>
 
@@ -70,16 +71,30 @@ inline void Player::tile_change(std::vector<Renderer_Component>* render, Camera_
 	Vector3 mouse_to_world = Player::camera_center(camera.camera);
 	
 	//converting mouse position to indexed position!
-	mouse_to_world.x += 10 * 0.5;
-	mouse_to_world.z += 10 * 0.5;
+	//std::cout<<mouse_to_world.x/100<<"	"<<mouse_to_world.z/100<<std::endl;
+	mouse_to_world.x += 5;
+	mouse_to_world.z += 5;
 
-	int x = mouse_to_world.x / 10;	
-	int y = mouse_to_world.z / 10;
+	int bx = mouse_to_world.x/100;
+	int by = mouse_to_world.z/100;
 
-	int index = x + y * 100;
-	if(IsMouseButtonPressed(0)){
+	int tx = mouse_to_world.x/10;
+	int ty = mouse_to_world.z/10;
+
+	int nein_x = tx - (bx * 10);
+	int nein_y = ty - (by * 10);
+
+	int big_index = (bx + by * 10) * 100;
+	int small_index = nein_x + nein_y * 10;
+	
+	int index = big_index + small_index;	
+
+	if(index < 0 || index > render->size()) return;
+
+	if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+	{
 		(*render)[index].model_id = 1;
-	}	
+	}
 }
 
 

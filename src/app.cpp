@@ -1,6 +1,7 @@
 #include "../include/app.hpp"
 #include "../include/json.hpp"
 #include "../include/components.hpp"
+#include "../include/component/renderer.hpp"
 
 //the entity stuff
 #include "../include/player.hpp"
@@ -76,7 +77,9 @@ void Game::draw(){
 		BeginMode3D(camera[0].camera);
 			GroundTile::draw(Game::world, Game::asset_data, _camera_center);
 			Player::draw(Game::world);
-			Titan::draw(Game::world, Game::asset_data, _camera_center);	
+
+			Renderer::model_renderer(Game::world, Game::asset_data);
+
 		EndMode3D();
 	EndTextureMode();
 

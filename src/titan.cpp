@@ -6,27 +6,32 @@
 
 void Titan::init(World &world)
 {
-	int titan_arch = world.Add_Archtype<Transform_Component, Renderer_Component, Move_Component, TitanTag>();
+	int titan_arch = world.Add_Archtype<
+		Transform_Component,
+		Object_Renderer,
+		Move_Component,
+		TitanTag
+		>();
 	
 	for(int i=0;i<100; i++)
 	{
 		Transform_Component position = {
 			.position={
-				(float)GetRandomValue(0, 1000),
+				(float)GetRandomValue(0, 100),
 				5,
-				(float)GetRandomValue(0, 1000)
+				(float)GetRandomValue(0, 100)
 			},
+			.scale = 0.3,
 			.rotation = 0
 		};
-		Renderer_Component render = {
-			.model_id = 2
-		};
+		Object_Renderer render;
+		render.model_id = 2;
 
 		Move_Component move = {
 			.target = {
-				(float)GetRandomValue(0, 1000),
-				5,
-				(float)GetRandomValue(0, 1000)	
+				0,
+				0,
+				0	
 			}
 		};
 		TitanTag tag;
@@ -46,25 +51,6 @@ void Titan::update(World &world)
 	Titan::move(position, move);
 }
 
-void Titan::draw(World &world,AssetData &asset_data, Vector3 camera_center)
-{
-	std::vector<int> titan_arch = world.Get_Archtype<Transform_Component, Renderer_Component, TitanTag>();
-
-	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(titan_arch[0]);
-	std::vector<Renderer_Component>* render = world.Fetch_Data<Renderer_Component>(titan_arch[0]);
-	
-	for(int i=0; i< position->size(); i++)
-	{	
-		float rotation = (*position)[i].rotation;
-		Vector3 pos = (*position)[i].position;
-		int model_id = (*render)[i].model_id;
-		
-		float distance = Vector3Distance(pos, camera_center);
-		if(distance < 70){
-			DrawModelEx(asset_data.Models[model_id], pos, {0, 1, 0}, rotation, {0.3, 0.3, 0.3}, WHITE); 
-		}
-	}	
-}
 
 
 inline void Titan::move(std::vector<Transform_Component>* transform, std::vector<Move_Component>* move)

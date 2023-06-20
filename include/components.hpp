@@ -5,6 +5,7 @@
 struct Transform_Component
 {
 	Vector3 position;
+	float scale=1;
 	float rotation = 0;
 };
 
@@ -24,8 +25,11 @@ struct Move_Component
 };
 
 
+//basic component tags!
+struct Object_Renderer:Renderer_Component{};
+struct TileMap_Renderer:Renderer_Component{};
+
+//entity tags
 struct PlayerTag{};
-
 struct GroundTag{};
-
 struct TitanTag{};

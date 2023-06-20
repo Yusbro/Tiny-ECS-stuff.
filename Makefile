@@ -1,2 +1,2 @@
 doit:
-	g++ -fsanitize=address -fno-omit-frame-pointer src/*.cpp -lraylib -lasan
+	g++ -fsanitize=address -fno-omit-frame-pointer src/*.cpp src/component/*.cpp -lraylib -lasan
