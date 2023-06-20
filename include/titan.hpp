@@ -9,6 +9,11 @@ namespace Titan
 	void init(World &world);
 	void update(World &world);
 
-	//some private functions!
-	inline void move(std::vector<Transform_Component>* transform, std::vector<Move_Component>* move);
+	//private stuff
+	void move_dir(
+			std::vector<Transform_Component>* position,
+			std::vector<Move_Component>* move,
+			std::vector<Transform_Component>* tile_transform,
+			std::vector<TileMap_Renderer>* tile_render
+			);
 };

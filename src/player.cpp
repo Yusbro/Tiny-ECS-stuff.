@@ -89,10 +89,7 @@ inline void Player::tile_change(std::vector<TileMap_Renderer>* render, Camera_Co
 	
 	int index = big_index + small_index;	
 	
-
-	std::cout<<by<<"	"<<ty<<"	"<<nein_y<<"	"<<big_index<<"	"<<small_index<<std::endl;
 	if(index < 0 || index > render->size()) return;
-
 	if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
 		(*render)[index].model_id = 1;

@@ -45,35 +45,4 @@ void GroundTile::init(World& world){
 	}
 }
 
-void GroundTile::draw(World& world, AssetData& asset_data, Vector3 camera_center){
-	std::vector<int> ground_tile_arch = world.Get_Archtype<Transform_Component, Renderer_Component, GroundTag>();
-	
-	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(ground_tile_arch[0]);
-	std::vector<Renderer_Component>* render = world.Fetch_Data<Renderer_Component>(ground_tile_arch[0]);	
-		
-	int tx = camera_center.x/100;
-	int ty = camera_center.z/100;
-
-	auto draw_tile = [&](int x, int y){
-		int index = (x + y * (BORDER_SIZE/TINY_BORDER_SIZE)) * (TINY_BORDER_SIZE * TINY_BORDER_SIZE);	
-		if(index <0)	return;
-		for(int i=index; i < index + 100; i++){	
-			Vector3 pos = (*position)[i].position;
-			int model_id = (*render)[i].model_id;
-		
-			DrawModel(asset_data.Models[model_id], pos, TILE_SIZE, WHITE);		
-		}
-	};
-
-	draw_tile(tx, ty);	
-	draw_tile(tx+1, ty);	
-	draw_tile(tx-1, ty);
-	draw_tile(tx, ty+1);
-	draw_tile(tx, ty-1);
-	draw_tile(tx+1, ty+1);
-	draw_tile(tx-1, ty-1);
-	draw_tile(tx+1, ty-1);
-	draw_tile(tx-1, ty+1);
-}
-
 

@@ -1,6 +1,9 @@
 #include "../include/app.hpp"
 #include "../include/json.hpp"
 #include "../include/components.hpp"
+
+//all the component stuff
+#include "../include/component/kinematic.hpp"
 #include "../include/component/renderer.hpp"
 
 //the entity stuff
@@ -63,6 +66,10 @@ void Game::init(){
 void Game::update(){
 	Player::update(Game::world);
 	Titan::update(Game::world);
+	
+
+	//core component update!!!
+	Kinematic::Move_Towards(Game::world);
 }
 
 void Game::draw(){
