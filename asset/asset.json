@@ -12,5 +12,9 @@
 			"asset/models/demon.obj",
 			"asset/models/demon_0.png"
 		]
+	},
+
+	"billboard":{
+		"people":"asset/models/people.png"	
 	}
 }
