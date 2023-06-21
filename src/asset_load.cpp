@@ -20,9 +20,6 @@ void Asset_Loader::load_models(AssetData &asset_data)
 
 	json data = json::parse(fileContent);
 	std::cout<<"asset json parased!"<<std::endl;
-	
-	
-	asset_data.shader = LoadShader("", "asset/shader/world.fs");
 
 	if(data.contains("models") && data["models"].is_object()){
 		for(auto i = data["models"].begin(); i != data["models"].end(); i++ ){
@@ -47,7 +44,25 @@ void Asset_Loader::load_models(AssetData &asset_data)
 
 
 void Asset_Loader::load_billboard(AssetData &asset_data)
-{
+{	
+	std::ifstream f("asset/asset.json");	
+	
+	std::string fileContent({std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>()});
+	
+	std::cout<<fileContent<<std::endl;
 
+	json data = json::parse(fileContent);
+	std::cout<<"asset json parased!"<<std::endl;
+
+	if(data.contains("billboard") && data["billboard"].is_object()){
+		for(auto i = data["billboard"].begin(); i != data["billboard"].end(); i++ ){
+			std::string path = i.value();
+			
+			Texture texture = LoadTexture(path.c_str());
+			asset_data.Billboard.push_back(texture);
+		}
+		std::cout<<"done loading the billboard"<<std::endl;
+	}
+	
 
 }

@@ -25,6 +25,7 @@ void Game::init(){
 	//loading all the assets!!!
 	Asset_Loader::load_shader(Game::asset_data);
 	Asset_Loader::load_models(Game::asset_data);
+	Asset_Loader::load_billboard(Game::asset_data);
 
 	//loading all the entity and stuff!!!
 	Player::init(Game::world);
@@ -72,6 +73,7 @@ void Game::draw(){
 void Game::deinit(){
 	UnloadShader(Game::asset_data.shader);
 	Game::asset_data.unload_models();
+	Game::asset_data.unload_billboard();
 	UnloadRenderTexture(Game::render_texture);
 }
 

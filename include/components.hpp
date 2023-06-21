@@ -28,6 +28,7 @@ struct Move_Component
 //basic component tags!
 struct Object_Renderer:Renderer_Component{};
 struct TileMap_Renderer:Renderer_Component{};
+struct Billboard_Renderer:Renderer_Component{};
 
 //entity tags
 struct PlayerTag{};
