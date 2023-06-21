@@ -1,6 +1,8 @@
 #include "ecs.hpp"
 #include "asset_data.hpp"
 #include "components.hpp"
+#include "config.hpp"
+
 #include <raylib.h>
 
 #define MAX_ENEMY 10000
@@ -10,7 +12,7 @@ namespace Titan
 	void update(World &world);
 
 	//private stuff
-	void move_dir(
+	inline void move_dir(
 			std::vector<Transform_Component>* position,
 			std::vector<Move_Component>* move,
 			std::vector<Transform_Component>* tile_transform,

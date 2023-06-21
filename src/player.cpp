@@ -120,7 +120,7 @@ inline void Player::player_move(Transform_Component& transform, Camera_Component
 
 
 
-
+//da camera stuff!!
 Vector3 Player::camera_center(Camera camera){
 	Vector3 ret;
 	

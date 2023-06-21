@@ -21,7 +21,7 @@ void Kinematic::Move_Towards(World &world)
 		
 			Vector3 direction = Vector3Subtract(_transform.position, _move.target);
 			direction = Vector3Normalize(direction);
-			direction = Vector3Multiply(direction, {0.5,0,0.5});
+			direction = Vector3Multiply(direction, {-0.5,0,-0.5});
 
 			(*transform_arr)[i].position = Vector3Add(_transform.position, direction); 
 		}
