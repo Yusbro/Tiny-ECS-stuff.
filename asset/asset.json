@@ -11,6 +11,10 @@
 		"cdemon":[
 			"asset/models/demon.obj",
 			"asset/models/demon_0.png"
+		],
+		"farm":[
+			"asset/models/farm.obj",
+			"asset/models/farm.png"
 		]
 	},
 

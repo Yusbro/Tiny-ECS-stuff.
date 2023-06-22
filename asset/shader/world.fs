@@ -3,6 +3,7 @@
 // Input vertex attributes (from vertex shader)
 in vec2 fragTexCoord;
 in vec4 fragColor;
+in vec4 vertex_color;
 
 // Input uniform values
 uniform sampler2D texture0;
@@ -18,6 +19,6 @@ void main()
     // Texel color fetching from texture sampler
     vec4 texelColor = texture(texture0, fragTexCoord);
 
-    finalColor = texelColor;
+    finalColor = texelColor * vertex_color;
 }
 

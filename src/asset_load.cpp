@@ -6,7 +6,7 @@ using json = nlohmann::json;
 
 void Asset_Loader::load_shader(AssetData &asset_data)
 {
-	asset_data.shader = LoadShader("", "asset/shader/world.fs");
+	asset_data.shader = LoadShader("asset/shader/world.vs", "asset/shader/world.fs");
 }
 
 void Asset_Loader::load_models(AssetData &asset_data)

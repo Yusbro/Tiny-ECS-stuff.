@@ -34,3 +34,4 @@ struct Billboard_Renderer:Renderer_Component{};
 struct PlayerTag{};
 struct GroundTag{};
 struct TitanTag{};
+struct PeopleTag{};
