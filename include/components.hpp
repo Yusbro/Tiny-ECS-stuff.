@@ -1,5 +1,7 @@
 #pragma once
 #include <raylib.h>
+#include <vector>
+#include <array>
 
 //basic components!!!
 struct Transform_Component
@@ -22,6 +24,14 @@ struct Camera_Component
 struct Move_Component
 {
 	Vector3 target;	
+};
+
+
+struct ResourceCounter_Component
+{
+	float timer;
+	int Resource;
+	int Actual_Resource;
 };
 
 

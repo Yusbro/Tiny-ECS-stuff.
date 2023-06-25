@@ -6,11 +6,13 @@
 //all the component stuff
 #include "../include/component/kinematic.hpp"
 #include "../include/component/renderer.hpp"
+#include "../include/component/resource.hpp"
 
 //the entity stuff
 #include "../include/player.hpp"
 #include "../include/ground_tile.hpp"
 #include "../include/titan.hpp"
+#include "../include/resource_counter.hpp"
 
 #include <raylib.h>
 #include <fstream>
@@ -31,6 +33,7 @@ void Game::init(){
 	Player::init(Game::world);
 	GroundTile::init(Game::world);
 	Titan::init(Game::world);
+	ResourceCounter::init(Game::world);
 	
 	Game::render_texture = LoadRenderTexture(400, 300);
 	std::cout<<"Done with init stuff"<<std::endl;
@@ -40,10 +43,10 @@ void Game::init(){
 void Game::update(){
 	Player::update(Game::world);
 	Titan::update(Game::world);
-	
 
 	//core component update!!!
 	Kinematic::Move_Towards(Game::world);
+	Resource::Update_Resource(Game::world);
 }
 
 void Game::draw(){

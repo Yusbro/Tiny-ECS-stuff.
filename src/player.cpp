@@ -19,9 +19,14 @@ void Player::init(World& world)
 	Camera_Component camera_component = {.camera{camera}};
 
 	PlayerTag tag;
-	
-	int player = world.Add_Archtype<Transform_Component, Camera_Component, PlayerTag>();
-	world.Add_Entity<Transform_Component, Camera_Component, PlayerTag>(player, transform_component, camera_component, tag);
+
+
+	int player = world.Add_Archtype<
+		Transform_Component,
+		Camera_Component,
+		PlayerTag
+			>();
+	world.Add_Entity(player, transform_component, camera_component, tag);
 }
 
 void Player::update(World& world)
@@ -29,19 +34,19 @@ void Player::update(World& world)
 	//getting the player's archtype
 	std::vector<int> player = world.Get_Archtype<Transform_Component, Camera_Component, PlayerTag>();
 	std::vector<int> ground_tile_arch = world.Get_Archtype<TileMap_Renderer, GroundTag>();
+	std::vector<int> resource_arch = world.Get_Archtype<ResourceCounter_Component>();
 
 	//getting the player's position and camera component!
 	std::vector<Transform_Component>* position = world.Fetch_Data<Transform_Component>(player[0]);
 	std::vector<Camera_Component>* camera = world.Fetch_Data<Camera_Component>(player[0]);	
+	std::vector<ResourceCounter_Component>* resource_arr = world.Fetch_Data<ResourceCounter_Component>(resource_arch[0]);
 	std::vector<TileMap_Renderer>* ground_tile_render = world.Fetch_Data<TileMap_Renderer>(ground_tile_arch[0]);
-
 
 	//making the player move
 	Player::player_move((*position)[0], (*camera)[0]);
 	
-
 	//---for the tile stuff!!
-	Player::tile_change(ground_tile_render, (*camera)[0]);
+	Player::tile_change(ground_tile_render, (*camera)[0], resource_arr);
 }
 
 
@@ -67,7 +72,15 @@ void Player::draw(World &world)
 }
 
 
-inline void Player::tile_change(std::vector<TileMap_Renderer>* render, Camera_Component camera){	
+inline void Player::tile_change(
+		std::vector<TileMap_Renderer>* render,
+		Camera_Component camera,
+		std::vector<ResourceCounter_Component>* resource_arr
+	){
+	
+
+	int tile_id = 3;
+
 	Vector3 mouse_to_world = Player::camera_center(camera.camera);
 	
 	//converting mouse position to indexed position!
@@ -92,7 +105,8 @@ inline void Player::tile_change(std::vector<TileMap_Renderer>* render, Camera_Co
 	if(index < 0 || index > render->size()) return;
 	if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
-		(*render)[index].model_id = 3;
+		(*render)[index].model_id = tile_id;
+		(*resource_arr)[tile_id].Resource += 1;
 	}
 }
 

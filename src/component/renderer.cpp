@@ -21,8 +21,7 @@ void Renderer::model_renderer(World &world, AssetData &asset_data)
 				ret = groundHitInfo.point;
 			}
 			return ret;
-		};
-	
+		};	
 
 	//getting the camera stuff!!!
 	std::vector<int> camera_arch = world.Get_Archtype<Camera_Component>();
@@ -95,9 +94,8 @@ void Renderer::tile_renderer(World &world, AssetData &asset_data)
 		
 		
 		auto draw_tile = [&](int x, int y){
-			int index = (x + y * (BORDER_SIZE/TINY_BORDER_SIZE)) * TINY_BORDER_AREA;	
-			
-			if(index <0)	return;
+			int index = (x + y * (BORDER_SIZE/TINY_BORDER_SIZE)) * TINY_BORDER_AREA;
+			if(index <0 || index+TINY_BORDER_AREA > (BORDER_SIZE*BORDER_SIZE))	return;
 			for(int i=index; i < index + TINY_BORDER_AREA; i++){
 				
 				Transform_Component transform = (*transform_arr)[i];

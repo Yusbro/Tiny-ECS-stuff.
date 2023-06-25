@@ -4,9 +4,6 @@
 class Game{
 	
 	private:
-
-
-
 		World world;
 		AssetData asset_data;
 		
