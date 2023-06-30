@@ -13,6 +13,7 @@
 #include "../include/ground_tile.hpp"
 #include "../include/titan.hpp"
 #include "../include/resource_counter.hpp"
+#include "../include/game_ui.hpp"
 
 #include <raylib.h>
 #include <fstream>
@@ -34,6 +35,7 @@ void Game::init(){
 	GroundTile::init(Game::world);
 	Titan::init(Game::world);
 	ResourceCounter::init(Game::world);
+	GameUI::init(Game::world);
 	
 	Game::render_texture = LoadRenderTexture(400, 300);
 	std::cout<<"Done with init stuff"<<std::endl;
@@ -70,6 +72,7 @@ void Game::draw(){
 	BeginDrawing();	
 		DrawTexturePro(Game::render_texture.texture, (Rectangle){0,0, 400, -300}, (Rectangle){0,0, 1024, 800}, {0,0}, 0, WHITE);
 		DrawFPS(50, 50);
+		Renderer::ui_renderer(Game::world, Game::asset_data);
 	EndDrawing();
 }
 

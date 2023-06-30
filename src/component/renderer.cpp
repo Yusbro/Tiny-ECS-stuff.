@@ -132,9 +132,10 @@ void Renderer::ui_renderer(World &world, AssetData &asset_data)
 
 		for(int i=0;i<transform_arr->size(); i++){
 			Vector3 position = (*transform_arr)[i].position;
+			float scale = (*transform_arr)[i].scale;
+
 			int texture_id = (*ui_arr)[i].model_id;
-			DrawTexture(asset_data.Billboard[texture_id], position.x, position.y, WHITE);
+			DrawTextureEx(asset_data.Billboard[texture_id], (Vector2){position.x, position.y}, 0.0, scale, WHITE);
 		}
 	}
-
 }
