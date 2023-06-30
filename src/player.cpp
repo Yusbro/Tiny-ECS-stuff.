@@ -119,7 +119,6 @@ inline void Player::player_move(Transform_Component& transform, Camera_Component
 	if(IsKeyDown(KEY_A)) x = -1;
 	if(IsKeyDown(KEY_S)) y = 1;
 	if(IsKeyDown(KEY_D)) x = 1;
-		
 	
 	float move_angle = std::atan2(x, y) + 0.7853;
 	

@@ -26,7 +26,6 @@ struct Move_Component
 	Vector3 target;	
 };
 
-
 struct ResourceCounter_Component
 {
 	float timer;
@@ -34,11 +33,13 @@ struct ResourceCounter_Component
 	int Actual_Resource;
 };
 
-
 //basic component tags!
 struct Object_Renderer:Renderer_Component{};
 struct TileMap_Renderer:Renderer_Component{};
 struct Billboard_Renderer:Renderer_Component{};
+struct UI_Renderer:Renderer_Component{
+	int layer=0;
+};
 
 //entity tags
 struct PlayerTag{};

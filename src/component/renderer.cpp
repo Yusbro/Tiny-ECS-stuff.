@@ -119,3 +119,22 @@ void Renderer::tile_renderer(World &world, AssetData &asset_data)
 		draw_tile(tx-1, ty+1);
 	}
 }
+
+
+
+void Renderer::ui_renderer(World &world, AssetData &asset_data)
+{
+	std::vector<int> arch = world.Get_Archtype<Transform_Component, UI_Renderer>();	
+	
+	for(int arch_id:arch){
+		std::vector<Transform_Component>* transform_arr = world.Fetch_Data<Transform_Component>(arch_id);
+		std::vector<UI_Renderer>* ui_arr = world.Fetch_Data<UI_Renderer>(arch_id);
+
+		for(int i=0;i<transform_arr->size(); i++){
+			Vector3 position = (*transform_arr)[i].position;
+			int texture_id = (*ui_arr)[i].model_id;
+			DrawTexture(asset_data.Billboard[texture_id], position.x, position.y, WHITE);
+		}
+	}
+
+}
