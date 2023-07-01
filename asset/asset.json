@@ -19,6 +19,7 @@
 	},
 
 	"billboard":{
-		"people":"asset/models/people.png"	
+		"people":"asset/models/people.png",
+		"house":"asset/models/house_ui.png"
 	}
 }

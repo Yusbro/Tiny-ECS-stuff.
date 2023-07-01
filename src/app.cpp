@@ -7,6 +7,7 @@
 #include "../include/component/kinematic.hpp"
 #include "../include/component/renderer.hpp"
 #include "../include/component/resource.hpp"
+#include "../include/component/button.hpp"
 
 //the entity stuff
 #include "../include/player.hpp"
@@ -43,12 +44,14 @@ void Game::init(){
 
 
 void Game::update(){
+	GameUI::update(Game::world);
 	Player::update(Game::world);
 	Titan::update(Game::world);
 
 	//core component update!!!
 	Kinematic::Move_Towards(Game::world);
 	Resource::Update_Resource(Game::world);
+	Button::button_poll(Game::world);
 }
 
 void Game::draw(){

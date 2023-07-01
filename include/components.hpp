@@ -33,6 +33,17 @@ struct ResourceCounter_Component
 	int Actual_Resource;
 };
 
+struct Collider_Component{};
+
+struct Box_Collider:Collider_Component{
+	int w,h;	
+};
+
+struct Button_Component{
+	int is_pressed=0;
+};
+
+
 //basic component tags!
 struct Object_Renderer:Renderer_Component{};
 struct TileMap_Renderer:Renderer_Component{};
@@ -46,3 +57,4 @@ struct PlayerTag{};
 struct GroundTag{};
 struct TitanTag{};
 struct PeopleTag{};
+struct GameUiTag{};

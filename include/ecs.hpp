@@ -51,7 +51,7 @@ private:
 	
 	void Register_Components(std::string type_name, int archtype_location)
 	{
-		if(!component_manager.count(type_name) > 0){
+		if(!(component_manager.count(type_name) > 0)){
 			component_manager.insert({type_name, std::vector<int>(max_arch_size, -1)});
 		}
 		component_manager[type_name][archtype_location] = archtype_location;
